@@ -1,9 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const Subscription = require("../models/subscription");
 
 const signup = async (first_name, last_name, email, password) => {
+  const existingUser = await User.findOne({ where: { email } });
+  if (existingUser) {
+    throw new Error("Email already exists");
+  }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({
     first_name,
@@ -24,22 +27,19 @@ const login = async (email, password) => {
   if (!isPasswordValid) {
     throw new Error("Invalid password");
   }
-  const token = jwt.sign(
-    { id: user.id, is_admin: user.is_admin },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
-  if (user.is_admin) {
-    return { is_admin: true, token };
-  } else {
-    const subscription = await Subscription.findOne({
-      where: { user_id: user.id },
-    });
-    const subscription_expiration = subscription
-      ? subscription.expiration_date
-      : null;
-    return { is_admin: false, subscription_expiration, token };
-  }
+  return user; // Return user object for token generation
 };
 
-module.exports = { signup, login };
+const generateToken = (user) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET must be set in environment variables");
+  }
+  const token = jwt.sign(
+    { id: user.id, email: user.email, is_admin: user.is_admin },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" } // Access token lasts 1 hour
+  );
+  return token;
+};
+
+module.exports = { signup, login, generateToken };

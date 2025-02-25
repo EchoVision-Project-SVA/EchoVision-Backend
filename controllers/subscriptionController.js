@@ -25,7 +25,11 @@ const getSubscriptionById = async (req, res) => {
 
 const createSubscription = async (req, res) => {
   try {
-    const subscription = await subscriptionService.createSubscription(req.body);
+    const { user_id, subscription_type } = req.body;
+    const subscription = await subscriptionService.createSubscription({
+      user_id,
+      subscription_type,
+    });
     res.status(201).json(subscription);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -34,9 +38,10 @@ const createSubscription = async (req, res) => {
 
 const updateSubscription = async (req, res) => {
   try {
+    const { subscription_type } = req.body;
     const subscription = await subscriptionService.updateSubscription(
       req.params.id,
-      req.body
+      { subscription_type }
     );
     res.json(subscription);
   } catch (error) {
@@ -47,7 +52,7 @@ const updateSubscription = async (req, res) => {
 const deleteSubscription = async (req, res) => {
   try {
     await subscriptionService.deleteSubscription(req.params.id);
-    res.status(204).send();
+    res.status(200).json({ message: "Subscription deleted successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

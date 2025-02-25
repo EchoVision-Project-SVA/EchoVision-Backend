@@ -8,10 +8,10 @@ const {
 const router = express.Router();
 
 router.use(authenticate);
+router.post("/", subscriptionController.createSubscription);
 router.use(authorizeAdmin);
 
 router.get("/", subscriptionController.getAllSubscriptions);
-router.post("/", subscriptionController.createSubscription);
 router.get("/:id", subscriptionController.getSubscriptionById);
 router.put("/:id", subscriptionController.updateSubscription);
 router.delete("/:id", subscriptionController.deleteSubscription);

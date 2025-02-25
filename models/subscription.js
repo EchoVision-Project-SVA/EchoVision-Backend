@@ -8,8 +8,16 @@ const Subscription = sequelize.define("Subscription", {
     primaryKey: true,
     autoIncrement: true,
   },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: "id",
+    },
+  },
   subscription_type: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM("monthly", "yearly"),
     allowNull: false,
   },
   expiration_date: {
@@ -18,7 +26,7 @@ const Subscription = sequelize.define("Subscription", {
   },
 });
 
-User.hasOne(Subscription, { foreignKey: "user_id" });
+User.hasOne(Subscription, { foreignKey: "user_id", onDelete: "CASCADE" });
 Subscription.belongsTo(User, { foreignKey: "user_id" });
 
 module.exports = Subscription;

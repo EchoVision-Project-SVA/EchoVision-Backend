@@ -7,15 +7,19 @@ module.exports = {
       [
         {
           user_id: 1, // Matches John Doe
-          subscription_type: "Basic",
-          expiration_date: new Date("2024-09-27"),
+          subscription_type: "monthly",
+          expiration_date: new Date(
+            new Date().setMonth(new Date().getMonth() + 1)
+          ),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           user_id: 2, // Matches Admin User
-          subscription_type: "Premium",
-          expiration_date: new Date("2025-09-27"),
+          subscription_type: "yearly",
+          expiration_date: new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1)
+          ),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
