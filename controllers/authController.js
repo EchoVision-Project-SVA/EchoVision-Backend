@@ -36,7 +36,7 @@ const login = async (req, res) => {
     const user = await authService.login(email, password);
     const token = authService.generateToken(user); // Single access token
     if (user.is_admin) {
-      res.json({ is_admin: true, token });
+      res.json({ user_id: user.id, is_admin: true, token });
     } else {
       const subscription = await Subscription.findOne({
         where: { user_id: user.id },

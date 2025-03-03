@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const sequelize = require("./config/database");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
@@ -8,6 +9,7 @@ const subscriptionRoutes = require("./routes/subscriptionRoutes");
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
