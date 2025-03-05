@@ -1,4 +1,3 @@
-// controllers/pricingController.js
 const pricingService = require("../services/pricingService");
 
 const getAllPricing = async (req, res) => {
