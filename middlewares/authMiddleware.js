@@ -19,7 +19,7 @@ const authenticate = (req, res, next) => {
       throw new Error("JWT_SECRET is not configured");
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { id, email, is_admin }
+    req.user = decoded;
     next();
   } catch (error) {
     const message =

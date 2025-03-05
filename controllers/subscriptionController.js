@@ -1,9 +1,7 @@
-// controllers/subscriptionController.js
 const subscriptionService = require("../services/subscriptionService");
 
 const getAllSubscriptions = async (req, res) => {
   try {
-    // Extract query parameters for pagination and search.
     const { page = 1, limit = 10, search = "" } = req.query;
     const subscriptions = await subscriptionService.getAllSubscriptions({
       page: Number(page),

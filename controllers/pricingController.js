@@ -3,7 +3,6 @@ const pricingService = require("../services/pricingService");
 
 const getAllPricing = async (req, res) => {
     try {
-        // Optionally extract pagination/search parameters if you support them
         const pricingData = await pricingService.getAllPricing();
         res.json(pricingData);
     } catch (error) {

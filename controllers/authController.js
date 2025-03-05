@@ -34,7 +34,7 @@ const login = async (req, res) => {
         .json({ message: "Email and password are required" });
     }
     const user = await authService.login(email, password);
-    const token = authService.generateToken(user); // Single access token
+    const token = authService.generateToken(user);
     if (user.is_admin) {
       res.json({ user_id: user.id, is_admin: true, token });
     } else {
@@ -52,7 +52,6 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  // No server-side token invalidation; client should discard the token
   res.json({ message: "Logged out successfully" });
 };
 
