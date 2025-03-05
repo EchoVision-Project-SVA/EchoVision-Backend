@@ -27,7 +27,7 @@ const login = async (email, password) => {
   if (!isPasswordValid) {
     throw new Error("Invalid password");
   }
-  return user; // Return user object for token generation
+  return user; 
 };
 
 const generateToken = (user) => {
@@ -37,7 +37,7 @@ const generateToken = (user) => {
   const token = jwt.sign(
     { id: user.id, email: user.email, is_admin: user.is_admin },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" } // Access token lasts 1 hour
+    { expiresIn: "1h" } 
   );
   return token;
 };
