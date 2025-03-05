@@ -1,8 +1,16 @@
+// controllers/userController.js
 const userService = require("../services/userService");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
+    // Extract pagination and search parameters from query string.
+    // Defaults: page=1, limit=10. "search" can be any string.
+    const { page = 1, limit = 10, search = "" } = req.query;
+    const users = await userService.getAllUsers({
+      page: Number(page),
+      limit: Number(limit),
+      search,
+    });
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,9 +1,7 @@
+// routes/subscription.js
 const express = require("express");
 const subscriptionController = require("../controllers/subscriptionController");
-const {
-  authenticate,
-  authorizeAdmin,
-} = require("../middlewares/authMiddleware");
+const { authenticate, authorizeAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 

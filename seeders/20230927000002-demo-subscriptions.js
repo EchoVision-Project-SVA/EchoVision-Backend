@@ -7,7 +7,7 @@ module.exports = {
       [
         {
           user_id: 1, // Matches John Doe
-          subscription_type: "monthly",
+          pricing_id: 1, // Assumes pricing plan with ID 1 corresponds to monthly pricing
           expiration_date: new Date(
             new Date().setMonth(new Date().getMonth() + 1)
           ),
@@ -16,7 +16,7 @@ module.exports = {
         },
         {
           user_id: 2, // Matches Admin User
-          subscription_type: "yearly",
+          pricing_id: 2, // Assumes pricing plan with ID 2 corresponds to yearly pricing
           expiration_date: new Date(
             new Date().setFullYear(new Date().getFullYear() + 1)
           ),

@@ -8,6 +8,7 @@ module.exports = {
       "Users",
       [
         {
+          id: 1,
           first_name: "John",
           last_name: "Doe",
           email: "john.doe@example.com",
@@ -17,6 +18,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          id: 2,
           first_name: "Admin",
           last_name: "User",
           email: "admin@example.com",

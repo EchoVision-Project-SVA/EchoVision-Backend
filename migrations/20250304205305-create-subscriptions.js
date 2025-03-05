@@ -1,0 +1,50 @@
+"use strict";
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("Subscriptions", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users", // table name in the database
+          key: "id",
+        },
+        onDelete: "CASCADE",
+      },
+      pricing_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Pricings", // make sure this matches your pricing table name
+          key: "id",
+        },
+        onDelete: "CASCADE",
+      },
+      expiration_date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      },
+    });
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("Subscriptions");
+  },
+};

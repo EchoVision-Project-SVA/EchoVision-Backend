@@ -1,8 +1,33 @@
+// services/userService.js
 const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 const User = require("../models/user");
 
-const getAllUsers = async () => {
-  return await User.findAll();
+const getAllUsers = async ({ page = 1, limit = 10, search = "" } = {}) => {
+  const offset = (page - 1) * limit;
+  const where = {};
+
+  if (search) {
+    where[Op.or] = [
+      { first_name: { [Op.like]: `%${search}%` } },
+      { last_name: { [Op.like]: `%${search}%` } },
+      { email: { [Op.like]: `%${search}%` } },
+    ];
+  }
+
+  // Using findAndCountAll to get both the rows and the total count
+  const { count, rows } = await User.findAndCountAll({
+    where,
+    limit,
+    offset,
+  });
+
+  return {
+    total: count,
+    page,
+    limit,
+    users: rows,
+  };
 };
 
 const getUserById = async (id) => {

@@ -1,6 +1,8 @@
+// models/subscription.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 const User = require("./user");
+const Pricing = require("./pricing");
 
 const Subscription = sequelize.define("Subscription", {
   id: {
@@ -16,9 +18,13 @@ const Subscription = sequelize.define("Subscription", {
       key: "id",
     },
   },
-  subscription_type: {
-    type: DataTypes.ENUM("monthly", "yearly"),
+  pricing_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: Pricing,
+      key: "id",
+    },
   },
   expiration_date: {
     type: DataTypes.DATE,
@@ -28,5 +34,8 @@ const Subscription = sequelize.define("Subscription", {
 
 User.hasOne(Subscription, { foreignKey: "user_id", onDelete: "CASCADE" });
 Subscription.belongsTo(User, { foreignKey: "user_id" });
+
+Pricing.hasMany(Subscription, { foreignKey: "pricing_id", onDelete: "CASCADE" });
+Subscription.belongsTo(Pricing, { foreignKey: "pricing_id" });
 
 module.exports = Subscription;
