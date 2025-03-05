@@ -1,9 +1,8 @@
-// services/videoService.js
 const Video = require('../models/video');
 const { Op } = require('sequelize');
 
 const uploadVideo = async ({ file_path, status = "pending" }) => {
-    // Validate status if provided (or it will default to "pending")
+
     if (!["pending", "finished"].includes(status)) {
         throw new Error("Invalid status. Choose 'pending' or 'finished'.");
     }
@@ -28,7 +27,7 @@ const getAllVideos = async ({ page = 1, limit = 10, search = "" } = {}) => {
     const whereClause = {};
 
     if (search) {
-        // Search in file_path (you can add other fields if needed)
+
         whereClause.file_path = { [Op.like]: `%${search}%` };
     }
 
