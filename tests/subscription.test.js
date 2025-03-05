@@ -7,14 +7,12 @@ describe("Subscriptions", () => {
   let subscriptionId;
 
   beforeAll(async () => {
-    // Login as admin to get token
     const res = await request(app).post("/auth/login").send({
       email: "admin@example.com",
       password: "password123",
     });
     token = res.body.token;
 
-    // Create a user for subscription testing
     const userRes = await request(app)
       .post("/users")
       .set("Authorization", `Bearer ${token}`)
