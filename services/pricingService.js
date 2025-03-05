@@ -1,8 +1,7 @@
-// services/pricingService.js
 const Pricing = require("../models/pricing");
 
 const createPricing = async ({ plan_name, price }) => {
-    // Ensure we don't create more than 2 pricing records
+
     const count = await Pricing.count();
     if (count >= 2) {
         throw new Error("Cannot create more than 2 pricing records");
@@ -25,7 +24,7 @@ const getAllPricing = async ({ page = 1, limit = 10, search = "" } = {}) => {
     const whereClause = {};
 
     if (search) {
-        // Filter by plan_name using a case-insensitive match
+
         whereClause.plan_name = { [Pricing.sequelize.Op.Like]: `%${search}%` };
     }
 
