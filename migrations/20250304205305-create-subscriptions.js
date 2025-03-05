@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Users", // table name in the database
+          model: "Users", 
           key: "id",
         },
         onDelete: "CASCADE",
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Pricings", // make sure this matches your pricing table name
+          model: "Pricings", 
           key: "id",
         },
         onDelete: "CASCADE",
