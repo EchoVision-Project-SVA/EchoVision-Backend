@@ -5,7 +5,7 @@ describe("Users", () => {
   let token;
 
   beforeAll(async () => {
-    // Login as admin to get token
+
     const res = await request(app).post("/auth/login").send({
       email: "admin@example.com",
       password: "password123",
