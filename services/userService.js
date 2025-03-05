@@ -1,4 +1,3 @@
-// services/userService.js
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 const User = require("../models/user");
@@ -15,7 +14,6 @@ const getAllUsers = async ({ page = 1, limit = 10, search = "" } = {}) => {
     ];
   }
 
-  // Using findAndCountAll to get both the rows and the total count
   const { count, rows } = await User.findAndCountAll({
     where,
     limit,
