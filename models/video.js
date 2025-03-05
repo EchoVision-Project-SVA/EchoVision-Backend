@@ -14,7 +14,7 @@ const Video = sequelize.define("Video", {
     status: {
         type: DataTypes.ENUM("pending", "finished"),
         allowNull: false,
-        defaultValue: "pending", // Default set to pending
+        defaultValue: "pending",
     },
 });
 
