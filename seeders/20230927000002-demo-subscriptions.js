@@ -6,8 +6,8 @@ module.exports = {
       "Subscriptions",
       [
         {
-          user_id: 1, 
-          pricing_id: 1
+          user_id: 1,
+          pricing_id: 1,
           expiration_date: new Date(
             new Date().setMonth(new Date().getMonth() + 1)
           ),
@@ -15,8 +15,8 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          user_id: 2, 
-          pricing_id: 2, 
+          user_id: 2,
+          pricing_id: 2,
           expiration_date: new Date(
             new Date().setFullYear(new Date().getFullYear() + 1)
           ),
