@@ -23,13 +23,11 @@ app.use("/pricing", pricingRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/videos", videoRoutes);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Internal server error" });
 });
 
-// Not found handler
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
