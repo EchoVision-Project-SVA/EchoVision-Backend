@@ -1,10 +1,8 @@
-// services/subscriptionService.js
 const Subscription = require("../models/subscription");
 const User = require("../models/user");
 const Pricing = require("../models/pricing");
 const { Op } = require("sequelize");
 
-// Helper function to format date to "YYYY-MM-DD"
 const formatYearMonthDay = (date) => {
   if (!date) return null;
   return new Date(date).toISOString().slice(0, 10);
@@ -15,7 +13,7 @@ const getAllSubscriptions = async ({ page = 1, limit = 10, search = "" } = {}) =
   const whereClause = {};
 
   if (search) {
-    // Use the $ alias to filter on fields from included models
+
     whereClause[Op.or] = [
       { "$User.first_name$": { [Op.Like]: `%${search}%` } },
       { "$User.last_name$": { [Op.Like]: `%${search}%` } },
@@ -39,7 +37,7 @@ const getAllSubscriptions = async ({ page = 1, limit = 10, search = "" } = {}) =
     offset,
   });
 
-  // Format dates for each subscription
+
   const formattedSubscriptions = rows.map((subscription) => {
     const subs = subscription.toJSON();
     subs.createdAt = formatYearMonthDay(subs.createdAt);
@@ -79,7 +77,7 @@ const getSubscriptionById = async (id) => {
 };
 
 const createSubscription = async ({ user_id, pricing_id }) => {
-  // Validate pricing_id by retrieving the pricing record
+
   const pricing = await Pricing.findByPk(pricing_id);
   if (!pricing) {
     throw new Error("Invalid pricing id");
@@ -87,7 +85,7 @@ const createSubscription = async ({ user_id, pricing_id }) => {
 
   const currentDate = new Date();
   let expiration_date;
-  // For demonstration: if the pricing plan contains "premium" or "yearly", assume a yearly subscription; otherwise, assume monthly.
+
   if (
     pricing.plan_name.toLowerCase().includes("premium") ||
     pricing.plan_name.toLowerCase().includes("yearly")
@@ -112,7 +110,7 @@ const createSubscription = async ({ user_id, pricing_id }) => {
 };
 
 const updateSubscription = async (id, { pricing_id }) => {
-  // Validate pricing_id
+
   const pricing = await Pricing.findByPk(pricing_id);
   if (!pricing) {
     throw new Error("Invalid pricing id");
