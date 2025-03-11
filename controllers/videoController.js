@@ -2,7 +2,11 @@ const videoService = require('../services/videoService');
 
 const uploadVideo = async (req, res) => {
     try {
-        const { file_path, status } = req.body;
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+        const file_path = req.file.path;
+        const { status } = req.body;
         const video = await videoService.uploadVideo({ file_path, status });
         res.status(201).json(video);
     } catch (error) {

@@ -42,8 +42,24 @@ const getAllPricing = async ({ page = 1, limit = 10, search = "" } = {}) => {
     };
 };
 
+const getPricingById = async (id) => {
+    const pricing = await Pricing.findByPk(Number(id));
+    return pricing;
+};
+
+const deletePricing = async (id) => {
+    const pricing = await Pricing.findByPk(Number(id));
+    if (!pricing) {
+        throw new Error("Pricing not found");
+    }
+    await pricing.destroy();
+    return pricing;
+};
+
 module.exports = {
     createPricing,
     updatePricing,
     getAllPricing,
+    getPricingById,
+    deletePricing,
 };

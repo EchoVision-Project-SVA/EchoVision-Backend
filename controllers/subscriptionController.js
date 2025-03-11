@@ -38,8 +38,8 @@ const createSubscription = async (req, res) => {
 
 const updateSubscription = async (req, res) => {
   try {
-    const { pricing_id } = req.body;
-    const subscription = await subscriptionService.updateSubscription(req.params.id, { pricing_id });
+    const { pricing_id, user_id } = req.body;
+    const subscription = await subscriptionService.updateSubscription(req.params.id, { pricing_id, user_id });
     res.json(subscription);
   } catch (error) {
     res.status(400).json({ message: error.message });

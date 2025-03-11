@@ -9,8 +9,12 @@ router.use(authorizeAdmin);
 
 router.get("/", pricingController.getAllPricing);
 
+router.get("/:id", pricingController.getPricingById);
+
 router.post("/", pricingController.createPricing);
 
 router.put("/:id", pricingController.updatePricing);
+
+router.delete("/:id", pricingController.deletePricing);
 
 module.exports = router;

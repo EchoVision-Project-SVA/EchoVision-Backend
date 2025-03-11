@@ -4,13 +4,13 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.bulkInsert('Pricings', [
             {
-                plan_name: 'Basic',
+                plan_name: 'yearly',
                 price: 9.99,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                plan_name: 'Premium',
+                plan_name: 'monthly',
                 price: 19.99,
                 createdAt: new Date(),
                 updatedAt: new Date(),

@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
+const videoController = require("../controllers/videoController");
+const upload = require("../config/multer");
+const {
+    authenticate,
+    authorizeAdmin,
+} = require("../middlewares/authMiddleware");
+
 const router = express.Router();
-const videoController = require('../controllers/videoController');
 
-router.post('/', videoController.uploadVideo);
+router.use(authenticate);
+router.use(authorizeAdmin);
 
-router.put('/:id', videoController.updateVideoStatus);
+router.post("/", upload.single("video"), videoController.uploadVideo);
 
-router.get('/', videoController.getAllVideos);
-router.get('/:id', videoController.getVideoById);
+router.put("/:id", videoController.updateVideoStatus);
+router.get("/", videoController.getAllVideos);
+router.get("/:id", videoController.getVideoById);
 
 module.exports = router;

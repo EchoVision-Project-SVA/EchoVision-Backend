@@ -87,7 +87,7 @@ const createSubscription = async ({ user_id, pricing_id }) => {
   let expiration_date;
 
   if (
-    pricing.plan_name.toLowerCase().includes("premium") ||
+    pricing.plan_name.toLowerCase().includes("monthly") ||
     pricing.plan_name.toLowerCase().includes("yearly")
   ) {
     expiration_date = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
@@ -109,8 +109,7 @@ const createSubscription = async ({ user_id, pricing_id }) => {
   };
 };
 
-const updateSubscription = async (id, { pricing_id }) => {
-
+const updateSubscription = async (id, { pricing_id, user_id }) => {
   const pricing = await Pricing.findByPk(pricing_id);
   if (!pricing) {
     throw new Error("Invalid pricing id");
@@ -124,7 +123,7 @@ const updateSubscription = async (id, { pricing_id }) => {
   const currentDate = new Date();
   let expiration_date;
   if (
-    pricing.plan_name.toLowerCase().includes("premium") ||
+    pricing.plan_name.toLowerCase().includes("monthly") ||
     pricing.plan_name.toLowerCase().includes("yearly")
   ) {
     expiration_date = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
@@ -132,7 +131,7 @@ const updateSubscription = async (id, { pricing_id }) => {
     expiration_date = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
   }
 
-  await subscription.update({ pricing_id, expiration_date });
+  await subscription.update({ pricing_id, user_id, expiration_date });
 
   return {
     id: subscription.id,
