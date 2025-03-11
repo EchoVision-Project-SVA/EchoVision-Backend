@@ -8,6 +8,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const pricingRoutes = require("./routes/pricingRoutes");
 const videoRoutes = require("./routes/videoRoutes");
+const statsRoutes = require("./routes/statsRoutes");
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use("/subscriptions", subscriptionRoutes);
 app.use("/pricing", pricingRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/videos", videoRoutes);
+app.use("/stats", statsRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
