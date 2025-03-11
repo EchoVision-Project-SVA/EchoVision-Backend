@@ -1,4 +1,3 @@
-// controllers/statsController.js
 const statsService = require("../services/statsService");
 
 const getDashboardStats = async (req, res) => {
