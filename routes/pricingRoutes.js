@@ -4,9 +4,9 @@ const { authenticate, authorizeAdmin } = require("../middlewares/authMiddleware"
 
 const router = express.Router();
 
-router.use(authenticate);
 router.get("/", pricingController.getAllPricing);
 
+router.use(authenticate);
 router.use(authorizeAdmin);
 
 router.get("/:id", pricingController.getPricingById);

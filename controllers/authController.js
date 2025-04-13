@@ -36,7 +36,7 @@ const login = async (req, res) => {
     const user = await authService.login(email, password);
     const token = authService.generateToken(user);
     if (user.is_admin) {
-      res.json({ user_id: user.id, is_admin: true, token });
+      res.json({ user_id: user.id, name: user.first_name + ' ' + user.last_name, is_admin: true, token });
     } else {
       const subscription = await Subscription.findOne({
         where: { user_id: user.id },
@@ -44,7 +44,7 @@ const login = async (req, res) => {
       const subscription_expiration = subscription
         ? subscription.expiration_date
         : null;
-      res.json({ is_admin: false, subscription_expiration, token });
+      res.json({ user_id: user.id, name: user.first_name + ' ' + user.last_name, is_admin: false, subscription_expiration, token });
     }
   } catch (error) {
     res.status(401).json({ message: error.message });

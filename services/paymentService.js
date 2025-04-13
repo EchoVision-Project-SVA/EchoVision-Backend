@@ -8,8 +8,8 @@ const createPayment = (amount, currency) => {
                 payment_method: "paypal",
             },
             redirect_urls: {
-                return_url: "http://localhost:3000/payments/success",
-                cancel_url: "http://localhost:3000/payments/cancel",
+                return_url: "http://192.168.184.1:55886/thanks/thanks",
+                cancel_url: "http://192.168.184.1:55886/thanks/thanks",
             },
             transactions: [
                 {
